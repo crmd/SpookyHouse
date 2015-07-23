@@ -12,6 +12,10 @@ public class TriggerTimer : Trigger {
 	}
 	
 	public override void Update () {
+		if(oneTimeUse && activated)
+		{
+			return;
+		}
 		curTimer -= Time.deltaTime;
 		if(curTimer <= 0)
 		{

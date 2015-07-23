@@ -5,19 +5,25 @@ using System.Collections;
 public class EventMove : Event {
 
 	public float closeEnoughDistance = 0.01f;
-	public float moveSpeed = 1.0f;
+	public float duration = 2.0f;
 	private bool moving;
-	public Vector3 endPoint;
+	public Transform endPoint;
 	public bool disableOnStop = true;
-
+	private float dist; 
+	public bool activateOnStart = true;
 	public override void Start () {
 		base.Start ();
+		dist = Vector3.Distance (transform.position, endPoint.position);
+		if(activateOnStart)
+		{
+			Activate();
+		}
 	}
 	
 	public override void Update () {
 		base.Update ();
 		if (moving) {
-			if(Vector3.Distance(transform.position, endPoint) <= closeEnoughDistance)
+			if(Vector3.Distance(transform.position, endPoint.position) <= closeEnoughDistance)
 			{
 				moving = false;
 				if(disableOnStop)
@@ -25,7 +31,7 @@ public class EventMove : Event {
 					gameObject.SetActive(false);
 				}
 			}
-			transform.position = Vector3.MoveTowards(transform.position, endPoint, moveSpeed * Time.deltaTime);
+			transform.position = Vector3.MoveTowards(transform.position, endPoint.position, dist/duration * Time.deltaTime);
 		}
 	}
 

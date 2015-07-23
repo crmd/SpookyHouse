@@ -41,6 +41,7 @@ public class Trigger : MonoBehaviour {
 		{
 			return;
 		}
+		activated = true;
 		for(int i = 0; i < linkedEvents.Count; ++i)
 		{
 			linkedEvents[i].Activate();
