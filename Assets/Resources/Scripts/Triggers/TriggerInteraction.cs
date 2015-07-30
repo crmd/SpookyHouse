@@ -46,7 +46,7 @@ public class TriggerInteraction : Trigger {
 
 	public void OnMouseOver()
 	{
-		if (Input.GetKeyDown (KeyCode.E)
+		if ((Input.GetKeyDown (KeyCode.E) || Input.GetKeyDown (KeyCode.Mouse0))
 		    && Vector3.Distance(transform.position, player.position) < interactDistance)
 		{
 			Activate();

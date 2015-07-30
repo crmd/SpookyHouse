@@ -12,6 +12,9 @@ public class Trigger : MonoBehaviour {
 	
 	public bool oneTimeUse = false;
 	protected bool activated = false;
+	public bool ignoreIfPowered = false;
+	protected static bool hasKey = false;
+	public bool requiresKey = false;
 
 //	public Trigger (){}
 
@@ -35,16 +38,32 @@ public class Trigger : MonoBehaviour {
 		powered = false;
 	}
 
+	public void GetKey()
+	{
+		hasKey = true;
+	}
+
 	public virtual void TriggerEvents()
 	{
 		if(oneTimeUse && activated)
 		{
 			return;
 		}
+		if(ignoreIfPowered && powered)
+		{
+			return;
+		}
+		if(requiresKey && !hasKey)
+		{
+			return;
+		}
 		activated = true;
 		for(int i = 0; i < linkedEvents.Count; ++i)
 		{
-			linkedEvents[i].Activate();
+			if(linkedEvents[i])
+			{
+				linkedEvents[i].Activate();
+			}
 		}
 	}
 }

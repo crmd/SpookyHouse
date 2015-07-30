@@ -20,6 +20,10 @@ public class TriggerTimer : Trigger {
 		if(curTimer <= 0)
 		{
 			curTimer = activateTime + Random.Range(-timerVariance/2, timerVariance/2);
+			if(ignoreIfPowered && powered)
+			{
+				return;
+			}
 			TriggerEvents();
 		}
 	}
